@@ -2,12 +2,12 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.decorators.cache import cache_page
-from .views import MailingGetListView
+from .views import MailingGetListView, MailingListListView
 
 app_name = 'mailing'
 
 urlpatterns = [
-    path('', MailingGetListView.as_view(), name='mailing_list'),
+    path('', MailingListListView.as_view(), name='mailing_list'),
 ]
 
 if settings.DEBUG:

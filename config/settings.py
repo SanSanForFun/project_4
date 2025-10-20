@@ -98,8 +98,8 @@ AUTH_USER_MODEL = 'users.CustomUser'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
-LOGIN_REDIRECT_URL = 'catalog:products_list'
-LOGOUT_REDIRECT_URL = 'catalog:products_list'
+LOGIN_REDIRECT_URL = 'mailing:mailing_list'
+LOGOUT_REDIRECT_URL = 'mailing:mailing_list'
 
 # Подключение к почтовому серверу
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')

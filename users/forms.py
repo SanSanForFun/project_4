@@ -1,13 +1,16 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.core.management.color import Style
+
+from mailing.forms import StyleFormMixin
 from users.models import CustomUser
 from django import forms
 from django.contrib.auth import authenticate
 
 
-class UserRegisterForm(UserCreationForm):
+class UserRegisterForm(StyleFormMixin, UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ['username', ]
+        fields = ['username', 'email' ]
 
 
 class CustomAuthenticationForm(AuthenticationForm):
