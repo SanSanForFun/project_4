@@ -1,6 +1,7 @@
 {% extends 'mailing/base.html' %}
 
 {% block content %}
+{% include 'mailing/head_mailing_list.html' %}
 <div class="container">
     <div class="col-5">
         <form class="row" method="post" enctype="multipart/form-data">
@@ -17,8 +18,6 @@
                     Создать
                     {% endif %}
                 </button>
-                <br>
-                <button type="submit" class="w-100 btn btn-lg btn-outline-primary" role="button">Назад</button>
             </div>
         </form>
     </div>

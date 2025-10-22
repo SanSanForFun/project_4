@@ -1,5 +1,5 @@
 from django.forms import ModelForm, BooleanField
-from mailing.models import MailingGet, Message
+from mailing.models import MailingGet, Message, MailingList
 
 
 class MessageForm(ModelForm):
@@ -11,6 +11,11 @@ class MailingGetForm(ModelForm):
     class Meta:
         model = MailingGet
         fields = ['email', 'name', 'comment']
+
+class MailingListForm(ModelForm):
+    class Meta:
+        model = MailingList
+        fields = ['time_first', 'time_last', 'status', 'message', 'recipient']
 
 
 class StyleFormMixin:

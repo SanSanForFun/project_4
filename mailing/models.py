@@ -34,9 +34,9 @@ class Message(models.Model):
 
 class MailingList(models.Model):
     """ Модель "Рассылка" """
-    time_first = models.DateTimeField(verbose_name='Дата и время первой отправки')
-    time_last = models.DateTimeField(verbose_name='Дата и время окончания отправки')
-    status = models.CharField(max_length=9, verbose_name='Статус рассылки')
+    time_first = models.DateTimeField(verbose_name='Дата и время первой отправки', help_text='YYYY-MM-DD HH:MM:SS')
+    time_last = models.DateTimeField(verbose_name='Дата и время окончания отправки', help_text='YYYY-MM-DD HH:MM:SS')
+    status = models.CharField(max_length=9, verbose_name='Статус рассылки', help_text='Создана, Запущена, Завершена')
     message = models.ForeignKey(Message, on_delete=models.CASCADE, verbose_name='Сообщение')
     recipient = models.ManyToManyField(MailingGet, verbose_name='Получатель рассылки')
 

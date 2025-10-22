@@ -1,9 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from mailing.forms import MessageForm, MailingGetForm
-from mailing.models import MailingGet, Message
+from mailing.forms import MessageForm, MailingGetForm, MailingListForm
+from mailing.models import MailingGet, Message, MailingList
 
 
 ## Класс получатель рассылок
@@ -21,7 +22,7 @@ class MailingGetDetailView(DetailView):
 
 
 # Создание клиента
-class MailingGetCreateView(CreateView):
+class MailingGetCreateView(LoginRequiredMixin, CreateView):
     model = MailingGet
     form_class = MailingGetForm
     template_name = 'mailing/mailing_get_create.html'
@@ -29,7 +30,7 @@ class MailingGetCreateView(CreateView):
 
 
 # Редактирование клиента
-class MailingGetUpdateView(UpdateView):
+class MailingGetUpdateView(LoginRequiredMixin, UpdateView):
     model = MailingGet
     form_class = MailingGetForm
     template_name = 'mailing/mailing_get_update.html'
@@ -37,7 +38,7 @@ class MailingGetUpdateView(UpdateView):
 
 
 # Удаление клиента
-class MailingGetDeleteView(DeleteView):
+class MailingGetDeleteView(LoginRequiredMixin, DeleteView):
     model = MailingGet
     # permission_required = 'catalog.can_unpublish_products'
     template_name = 'mailing/mailing_get_delete.html'
@@ -56,7 +57,7 @@ class MessageDetailView(DetailView):
 
 
 # Создание сообщения
-class MessageCreateView(CreateView):
+class MessageCreateView(LoginRequiredMixin, CreateView):
     model = Message
     form_class = MessageForm
     template_name = 'mailing/message_create.html'
@@ -64,7 +65,7 @@ class MessageCreateView(CreateView):
 
 
 # Редактирование сообщения
-class MessageUpdateView(UpdateView):
+class MessageUpdateView(LoginRequiredMixin, UpdateView):
     model = Message
     form_class = MessageForm
     template_name = 'mailing/message_update.html'
@@ -72,7 +73,7 @@ class MessageUpdateView(UpdateView):
 
 
 # Удаление сообщения
-class MessageDeleteView(DeleteView):
+class MessageDeleteView(LoginRequiredMixin, DeleteView):
     model = Message
     #permission_required = 'catalog.can_unpublish_products'
     template_name = 'mailing/message_delete.html'
@@ -81,34 +82,35 @@ class MessageDeleteView(DeleteView):
 # Класс Рассылка
 # Просмотр списка рассылок
 class MailingListView(ListView):
-    model = MailingGet
+    model = MailingList
     template_name = 'mailing/mailing_list.html'
 
 
 # Информация о рассылке
-class MailingDetailView(DetailView):
-    model = MailingGet
+class MailingListDetailView(DetailView):
+    model = MailingList
+    template_name = 'mailing/mailing_list_detail.html'
 
 
 # Создание рассылки
-class MailingCreateView(CreateView):
-    model = MailingGet
-    # form_class = ProductForm
-    # template_name = 'catalog/products_form.html'
+class MailingListCreateView(LoginRequiredMixin, CreateView):
+    model = MailingList
+    form_class = MailingListForm
+    template_name = 'mailing/mailing_list_create.html'
     success_url = reverse_lazy('mailing:mailing_list')
 
 
 # Редактирование рассылки
-class MailingUpdateView(UpdateView):
-    model = MailingGet
-    # form_class = ProductForm
-    # template_name = 'catalog/products_form.html'
+class MailingListUpdateView(LoginRequiredMixin, UpdateView):
+    model = MailingList
+    form_class = MailingListForm
+    template_name = 'mailing/mailing_list_update.html'
     success_url = reverse_lazy('mailing:mailing_list')
 
 
 # Удаление рассылки
-class MailingDeleteView(DeleteView):
-    model = MailingGet
+class MailingListDeleteView(LoginRequiredMixin, DeleteView):
+    model = MailingList
     # permission_required = 'catalog.can_unpublish_products'
-    # template_name = 'catalog/products_confirm_delete.html'
+    template_name = 'mailing/mailing_list_delete.html'
     success_url = reverse_lazy('mailing:mailing_list')
