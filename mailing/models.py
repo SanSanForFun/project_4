@@ -20,7 +20,7 @@ class MailingGet(models.Model):
 
 class Message(models.Model):
     """ Модель "Сообщение" """
-    mail_theme = models.CharField(max_length=50, verbose_name='Тема письма')
+    mail_theme = models.CharField(max_length=100, verbose_name='Тема письма')
     mail_body = models.TextField(verbose_name='Тело письма')
 
     def __str__(self):

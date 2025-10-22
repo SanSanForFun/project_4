@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from mailing.models import MailingGet
+from mailing.forms import MessageForm
+from mailing.models import MailingGet, Message
 
 
 ## Класс получатель рассылок
@@ -43,52 +44,52 @@ class MailingGetDeleteView(DeleteView):
 # Класс Сообщение
 # Просмотр списка сообщений
 class MessageListView(ListView):
-    model = MailingGet
-    template_name = 'mailing/message_list.html'
+    model = Message
+    template_name = 'message_list.html'
 
 
 # Информация о сообщении
 class MessageDetailView(DetailView):
-    model = MailingGet
+    model = Message
 
 
 # Создание сообщения
 class MessageCreateView(CreateView):
-    model = MailingGet
-    # form_class = ProductForm
-    # template_name = 'catalog/products_form.html'
-    # success_url = reverse_lazy('catalog:products_list')
+    model = Message
+    form_class = MessageForm
+    template_name = 'mailing/message_create.html'
+    success_url = reverse_lazy('mailing:message_list')
 
 
 # Редактирование сообщения
 class MessageUpdateView(UpdateView):
-    model = MailingGet
-    # form_class = ProductForm
-    # template_name = 'catalog/products_form.html'
-    # success_url = reverse_lazy('catalog:products_list')
+    model = Message
+    form_class = MessageForm
+    template_name = 'mailing/message_update.html'
+    success_url = reverse_lazy('mailing:message_list')
 
 
 # Удаление сообщения
 class MessageDeleteView(DeleteView):
-    model = MailingGet
-    # permission_required = 'catalog.can_unpublish_products'
-    # template_name = 'catalog/products_confirm_delete.html'
-    # success_url = reverse_lazy('catalog:products_list')
+    model = Message
+    #permission_required = 'catalog.can_unpublish_products'
+    template_name = 'mailing/message_delete.html'
+    success_url = reverse_lazy('mailing:message_list')
 
 # Класс Рассылка
 # Просмотр списка рассылок
-class MailingListListView(ListView):
+class MailingListView(ListView):
     model = MailingGet
     template_name = 'mailing/mailing_list.html'
 
 
 # Информация о рассылке
-class MailingListDetailView(DetailView):
+class MailingDetailView(DetailView):
     model = MailingGet
 
 
 # Создание рассылки
-class MailingListCreateView(CreateView):
+class MailingCreateView(CreateView):
     model = MailingGet
     # form_class = ProductForm
     # template_name = 'catalog/products_form.html'
@@ -96,7 +97,7 @@ class MailingListCreateView(CreateView):
 
 
 # Редактирование рассылки
-class MailingListUpdateView(UpdateView):
+class MailingUpdateView(UpdateView):
     model = MailingGet
     # form_class = ProductForm
     # template_name = 'catalog/products_form.html'
@@ -104,7 +105,7 @@ class MailingListUpdateView(UpdateView):
 
 
 # Удаление рассылки
-class MailingListDeleteView(DeleteView):
+class MailingDeleteView(DeleteView):
     model = MailingGet
     # permission_required = 'catalog.can_unpublish_products'
     # template_name = 'catalog/products_confirm_delete.html'

@@ -1,11 +1,11 @@
 from django.forms import ModelForm, BooleanField
-from mailing.models import MailingGet
+from mailing.models import MailingGet, Message
 
 
-class ProductForm(ModelForm):
+class MessageForm(ModelForm):
     class Meta:
-        model = MailingGet
-        fields = ['email', 'name', 'comment', ]
+        model = Message
+        fields = ['mail_theme', 'mail_body',]
 
 
 class StyleFormMixin:
