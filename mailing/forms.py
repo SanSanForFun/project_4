@@ -7,6 +7,11 @@ class MessageForm(ModelForm):
         model = Message
         fields = ['mail_theme', 'mail_body',]
 
+class MailingGetForm(ModelForm):
+    class Meta:
+        model = MailingGet
+        fields = ['email', 'name', 'comment']
+
 
 class StyleFormMixin:
     def __init__(self, *args, **kwargs):

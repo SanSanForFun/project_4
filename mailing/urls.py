@@ -4,8 +4,11 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.decorators.cache import cache_page
+
+from .models import MailingGet
 from .views import MailingGetListView, MailingListView, MessageListView, MessageDetailView, MessageCreateView, \
-    MessageDeleteView, MailingCreateView, MessageUpdateView
+    MessageDeleteView, MailingCreateView, MessageUpdateView, MailingGetDetailView, MailingGetUpdateView, \
+    MailingGetCreateView, MailingGetDeleteView
 
 app_name = 'mailing'
 
@@ -17,6 +20,11 @@ urlpatterns = [
     path('message/create/', MessageCreateView.as_view(), name='message_create'),
     path('message/delete/<int:pk>/', MessageDeleteView.as_view(), name='message_delete'),
     path('mailing/create/', MailingCreateView.as_view(), name='mailing_create'),
+    path('mailing_get/', MailingGetListView.as_view(), name='mailing_get_list'),
+    path('mailing_get/<int:pk>/', MailingGetDetailView.as_view(), name='mailing_get_detail'),
+    path('mailing_get/update/<int:pk>/', MailingGetUpdateView.as_view(), name='mailing_get_update'),
+    path('mailing_get/create/', MailingGetCreateView.as_view(), name='mailing_get_create'),
+    path('mailing_get/delete/<int:pk>/', MailingGetDeleteView.as_view(), name='mailing_get_delete'),
 
 ]
 
