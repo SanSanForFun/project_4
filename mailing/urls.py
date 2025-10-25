@@ -1,19 +1,16 @@
-from tempfile import template
-
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.decorators.cache import cache_page
 
-from .models import MailingGet
 from .views import MailingGetListView, MailingListView, MessageListView, MessageDetailView, MessageCreateView, \
     MessageDeleteView, MessageUpdateView, MailingGetDetailView, MailingGetUpdateView, \
     MailingGetCreateView, MailingGetDeleteView, MailingListDetailView, MailingListUpdateView, MailingListCreateView, \
-    MailingListDeleteView
+    MailingListDeleteView, AttemptMailingListView, SendMailingView
 
 app_name = 'mailing'
 
 urlpatterns = [
+    path('send_mailing/', SendMailingView.as_view(), name='send_mailing'),
     path('mailing_list', MailingListView.as_view(), name='mailing_list'),
     path('mailing_list/<int:pk>/', MailingListDetailView.as_view(), name='mailing_list_detail'),
     path('mailing_list/update/<int:pk>/', MailingListUpdateView.as_view(), name='mailing_list_update'),
@@ -29,6 +26,7 @@ urlpatterns = [
     path('mailing_get/update/<int:pk>/', MailingGetUpdateView.as_view(), name='mailing_get_update'),
     path('mailing_get/create/', MailingGetCreateView.as_view(), name='mailing_get_create'),
     path('mailing_get/delete/<int:pk>/', MailingGetDeleteView.as_view(), name='mailing_get_delete'),
+    path('attempt_mailing/', AttemptMailingListView.as_view(), name='attempt_mailing_list'),
 
 ]
 

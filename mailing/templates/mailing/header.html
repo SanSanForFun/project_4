@@ -4,8 +4,11 @@
     </a>
     <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
         <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'mailing:mailing_list' %}">Главная</a>
-        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'mailing:message_list' %}">Сообщения</a>
-        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'mailing:mailing_get_list' %}">Получатель рассылки</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'mailing:attempt_mailing_list' %}">Попытки рассылок</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none"
+           href="{% url 'mailing:message_list' %}">Сообщения</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'mailing:mailing_get_list' %}">Получатель
+            рассылки</a>
         {% if user.is_authenticated %}
         <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{% url 'users:logout' %}">Выход</a>
         {% else %}

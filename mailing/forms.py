@@ -1,21 +1,44 @@
 from django.forms import ModelForm, BooleanField
-from mailing.models import MailingGet, Message, MailingList
+from mailing.models import MailingGet, Message, MailingList, AttemptMailing
 
 
 class MessageForm(ModelForm):
+    """ Сообщения """
+
     class Meta:
         model = Message
-        fields = ['mail_theme', 'mail_body',]
+        fields = ['mail_theme', 'mail_body', ]
+
 
 class MailingGetForm(ModelForm):
+    """ Получатель рассылки """
+
     class Meta:
         model = MailingGet
         fields = ['email', 'name', 'comment']
 
+
 class MailingListForm(ModelForm):
+    """ Рассылка """
+
     class Meta:
         model = MailingList
-        fields = ['time_first', 'time_last', 'status', 'message', 'recipient']
+        exclude = ['owner']
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request')
+        user = self.request.user
+        super().__init__(*args, **kwargs)
+        self.fields['email'].queryset = MailingGet.objects.filter(owner=user)
+        self.fields['message'].queryset = Message.objects.filter(owner=user)
+
+
+class AttemptMailingForm(ModelForm):
+    """ Попытка рассылки """
+
+    class Meta:
+        model = AttemptMailing
+        fields = ['attempt_time', 'status', 'server_answer', 'mailing_list']
 
 
 class StyleFormMixin:
