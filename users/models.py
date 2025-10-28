@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser, UserManager
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from users.managers import CustomUserManager
 
@@ -11,7 +11,6 @@ class CustomUser(AbstractUser):
                                     help_text='Введите номер телефона')
     country = models.CharField(max_length=20, verbose_name='Страна', blank=True, null=True, help_text='Откуда вы')
 
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
@@ -19,5 +18,3 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
-
-

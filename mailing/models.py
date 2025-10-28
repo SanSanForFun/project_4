@@ -1,5 +1,3 @@
-from tkinter.constants import CASCADE
-
 from django.core.mail import send_mail
 from django.db import models
 

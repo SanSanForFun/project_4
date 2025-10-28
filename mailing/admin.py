@@ -21,6 +21,7 @@ class MailingListAdmin(admin.ModelAdmin):
     list_filter = ('time_first', 'time_last', 'status')
     search_fields = ('status', 'message')
 
+
 @admin.register(AttemptMailing)
 class AttemptMailingAdmin(admin.ModelAdmin):
     list_display = ('attempt_time', 'status', 'mailing_list')

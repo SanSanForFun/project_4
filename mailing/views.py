@@ -14,7 +14,7 @@ from mailing.tasks import send_mailing
 
 
 class HomeTemplateView(TemplateView):
-    template_name = 'base.html'
+    template_name = 'mailing/head_mailing_list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -25,22 +25,16 @@ class HomeTemplateView(TemplateView):
             context['count_unique_mailing_get'] = HomeService.count_unique_mailing_get(user)
 
 
-## Класс получатель рассылок
+# Класс получатель рассылок
 # Просмотр списка клиентов
-@method_decorator(cache_page(60 * 15), name='dispatch')
+# @method_decorator(cache_page(60 * 15), name='dispatch')
 class MailingGetListView(ListView):
     model = MailingGet
     template_name = 'mailing/mailing_get_list.html'
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        if (self.request.user.has_perm('service.can_moderate_mailing_list') or self.request.user.is_superuser):
-            return queryset
-        return queryset.filter(owner=self.request.user)
-
 
 # Информация о клиенте
-@method_decorator(cache_page(60 * 15), name='dispatch')
+# @method_decorator(cache_page(60 * 15), name='dispatch')
 class MailingGetDetailView(DetailView):
     model = MailingGet
     template_name = 'mailing/mailing_get_detail.html'
@@ -84,14 +78,14 @@ class MailingGetDeleteView(LoginRequiredMixin, DeleteView):
 
 # Класс Сообщение
 # Просмотр списка сообщений
-@method_decorator(cache_page(60 * 15), name='dispatch')
+# @method_decorator(cache_page(60 * 15), name='dispatch')
 class MessageListView(ListView):
     model = Message
     template_name = 'message_list.html'
 
 
 # Информация о сообщении
-@method_decorator(cache_page(60 * 15), name='dispatch')
+# @method_decorator(cache_page(60 * 15), name='dispatch')
 class MessageDetailView(DetailView):
     model = Message
 
@@ -125,14 +119,14 @@ class MessageDeleteView(LoginRequiredMixin, DeleteView):
 
 # Класс Рассылка
 # Просмотр списка рассылок
-@method_decorator(cache_page(60 * 15), name='dispatch')
+# @method_decorator(cache_page(60 * 15), name='dispatch')
 class MailingListView(ListView):
     model = MailingList
     template_name = 'mailing/mailing_list.html'
 
 
 # Информация о рассылке
-@method_decorator(cache_page(60 * 15), name='dispatch')
+# @method_decorator(cache_page(60 * 15), name='dispatch')
 class MailingListDetailView(DetailView):
     model = MailingList
     template_name = 'mailing/mailing_list_detail.html'
@@ -149,6 +143,12 @@ class MailingListCreateView(LoginRequiredMixin, CreateView):
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
+    def get_form_kwargs(self):
+        # Передаем request в форму
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
 
 # Редактирование рассылки
 class MailingListUpdateView(LoginRequiredMixin, UpdateView):
@@ -156,6 +156,12 @@ class MailingListUpdateView(LoginRequiredMixin, UpdateView):
     form_class = MailingListForm
     template_name = 'mailing/mailing_list_update.html'
     success_url = reverse_lazy('mailing:mailing_list')
+
+    def get_form_kwargs(self):
+        # Передаем request в форму
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
 
 
 # Удаление рассылки

@@ -1,3 +1,4 @@
+from django import forms
 from django.forms import ModelForm, BooleanField
 from mailing.models import MailingGet, Message, MailingList, AttemptMailing
 
@@ -20,6 +21,8 @@ class MailingGetForm(ModelForm):
 
 class MailingListForm(ModelForm):
     """ Рассылка """
+    email = forms.ModelChoiceField(queryset=MailingGet.objects.none())  # Пустой QuerySet по умолчанию
+    message = forms.ModelChoiceField(queryset=Message.objects.none())
 
     class Meta:
         model = MailingList

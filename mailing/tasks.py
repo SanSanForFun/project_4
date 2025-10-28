@@ -1,6 +1,7 @@
 from celery import shared_task
 from django.core.mail import send_mail
-from mailing.models import MailingList, Message
+from mailing.models import MailingList
+
 
 @shared_task
 def send_mailing(mailing_id):

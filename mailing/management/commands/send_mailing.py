@@ -1,5 +1,4 @@
 from django.core.management.base import BaseCommand
-from django.utils import timezone
 from mailing.models import MailingList
 from mailing.tasks import send_mailing  # Предполагается, что отправка выполняется через Celery
 
@@ -15,7 +14,7 @@ class Command(BaseCommand):
         try:
             mailing = MailingList.objects.get(id=mailing_id)
 
-            # Запускаем задачу отправки рассылки (например, через Celery)
+            # Запускаем задачу отправки рассылки
             send_mailing.delay(mailing.id)
 
             self.stdout.write(self.style.SUCCESS(f"Рассылка {mailing_id} успешно запущена!"))
