@@ -1,0 +1,29 @@
+{% extends 'mailing/base.html' %}
+
+{% load my_tags %}
+
+{% block content %}
+{% include 'mailing/head_mailing_get.html' %}
+<main>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        {% for mailing_get in object_list %}
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3"><h4 class="my-0 fw-normal">{{ mailing_get.email }}</h4></div>
+                <div class="card-body"><h1 class="card-title pricing-card-title">{{ mailing_get.name }}</h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>{{ mailing_get.comment }}</li>
+                        </ul>
+                        <a type="button" class="w-100 btn btn-lg btn-outline-primary"
+                           href="{% url 'mailing:mailing_get_detail' mailing_get.pk %}">Детали</a>
+                        <a type="button" class="w-100 btn btn-lg btn-outline-primary"
+                           href="{% url 'mailing:mailing_get_update' mailing_get.pk %}">Редактировать</a>
+                        <a type="button" class="w-100 btn btn-lg btn-outline-primary"
+                           href="{% url 'mailing:mailing_get_delete' mailing_get.pk %}">Удалить</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+</main>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'mailing/base.html' %}
+
+{% block content %}
+{% include 'mailing/head_message.html' %}
+<div class="container">
+    <div class="col-5">
+        <form class="row" method="post" enctype="multipart/form-data">
+            <div class="card">
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="w-100 btn btn-lg btn-outline-primary" role="button">
+                    {% if object %}
+                    Сохранить
+                    {% else %}
+                    Создать
+                    {% endif %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

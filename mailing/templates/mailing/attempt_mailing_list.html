@@ -1,0 +1,28 @@
+{% extends 'mailing/base.html' %}
+
+{% load my_tags %}
+
+{% block content %}
+<main>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        {% for attempt_mailing in object_list %}
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3"><h4 class="my-0 fw-normal">{{ attempt_mailing.status }}</h4></div>
+                <div class="card-body"><h1 class="card-title pricing-card-title">{{ attempt_mailing.message }}</h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>{{ attempt_mailing.recipient }}</li>
+                        </ul>
+                        <a type="button" class="w-100 btn btn-lg btn-outline-primary"
+                           href="{% url 'mailing:mailing_get_detail' attempt_mailing.pk %}">Детали</a>
+                        <a type="button" class="w-100 btn btn-lg btn-outline-primary"
+                           href="{% url 'mailing:mailing_get_update' attempt_mailing.pk %}">Редактировать</a>
+                        <a type="button" class="w-100 btn btn-lg btn-outline-primary"
+                           href="{% url 'mailing:mailing_get_delete' attempt_mailing.pk %}">Удалить</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+</main>
+{% endblock %}

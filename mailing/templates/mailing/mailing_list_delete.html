@@ -1,0 +1,19 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+{% include 'mailing/head_mailing_list.html' %}
+<div class="container">
+    <div class="col-4">
+        <form class="row" method="post" enctype="multipart/form-data">
+            <div class="card">
+                <p class="card-text">Вы действительно хотите удалить рассылку?</p>
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="w-100 btn btn-lg btn-outline-primary" role="button">Удалить</button>
+                <a class="w-100 btn btn-lg btn-outline-primary" href="{% url 'mailing:mailing_list' %}">Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

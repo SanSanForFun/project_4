@@ -1,0 +1,24 @@
+{% extends 'mailing/base.html' %}
+
+{% load my_tags %}
+
+{% block content %}
+{% include 'mailing/head_mailing_list.html' %}
+<main>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        {% for mailing_list in object_list %}
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3"><h4 class="my-0 fw-normal">Статус: {{ mailing_list.status }}</h4></div>
+                <div class="card-body"><h1 class="card-title pricing-card-title">{{ mailing_list.message }}</h1>
+                    <a type="button" class="w-100 btn btn-lg btn-outline-primary" href="{% url 'mailing:send_mailing' %}">Разослать</a>
+                    <a type="button" class="w-100 btn btn-lg btn-outline-primary" href="{% url 'mailing:mailing_list_detail' mailing_list.pk %}">Детали</a>
+                    <a type="button" class="w-100 btn btn-lg btn-outline-primary" href="{% url 'mailing:mailing_list_update' mailing_list.pk %}">Редактировать</a>
+                    <a type="button" class="w-100 btn btn-lg btn-outline-primary" href="{% url 'mailing:mailing_list_delete' mailing_list.pk %}">Удалить</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

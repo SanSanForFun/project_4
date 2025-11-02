@@ -1,0 +1,28 @@
+{% extends 'mailing/base.html' %}
+{% load my_tags %}
+{% block content %}
+{% include 'mailing/head_mailing_list.html' %}
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <p class="card-text">{{ object.time_first }}</p>
+                        <p class="card-text">{{ object.time_last }}</p>
+                        <p class="card-text">{{ object.status }}</p>
+                        <p class="card-text">{{ object.message }}</p>
+                        <p class="card-text">{{ object.recipient }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="w-100 btn btn-lg btn-outline-primary" href="{% url 'mailing:mailing_list' %}"
+                                   role="button">Назад</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
